@@ -5,16 +5,16 @@
 // Inherit the parent event
 event_inherited();
 
-velocidade = 5;
+velocidade = 8;
 gravidade = .5;
 forca_pulo = -12;
 is_double_pulo = 0;
 
 dash_speed = 5;
 dash_cooldown = 40;
-dash_timer = 0;
+dash_timer = 0; 
 dash_cd_timer = 0;
-dash_duration = 8;
+dash_duration = 10;
 
 
 function input_player() {
@@ -24,6 +24,16 @@ function input_player() {
 	_right = keyboard_check(ord("D"));
 	_jump = keyboard_check_pressed(vk_space);
 	_dash = keyboard_check(vk_shift);
+	
+	if (vel_h != 0) {
+	    sprite_index = spr_run;
+    
+	    if (vel_h > 0) image_xscale = -2;
+	    if (vel_h < 0) image_xscale = 2;
+		
+	} else {
+		sprite_index = spr_idle;
+	}
 	
 	
 	var _is_ground = place_meeting(x, y+1, obj_bloco)
