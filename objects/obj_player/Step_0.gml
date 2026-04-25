@@ -1,4 +1,5 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
-input_player( )
+
+input_player()

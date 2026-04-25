@@ -1,31 +1,18 @@
-  /// @description Inserir descrição aqui
-// Você pode escrever seu código neste editor
+var _tid = layer_tilemap_get_id("tile_ground");
 
-var _colx, _coly;
-
-_colx = instance_place(x + vel_h, y, obj_bloco);
-_coly = instance_place(x, y + vel_v, obj_bloco);
-
-if (_colx) {
-	if (vel_h>0) {
-		x = _colx.bbox_left+(x-bbox_right);
-	}
-	if (vel_h<0) {
-		x = _colx.bbox_right+(x-bbox_left);
-	}	 
-	vel_h = 0;
-}
- 
-if (_coly) {
-	if (vel_v>0) {
-		y = _coly.bbox_top+(y-bbox_bottom);
-	}
-	if (vel_v<0) {
-		y = _coly.bbox_bottom+(y-bbox_top);
-	}
-	 
-	vel_v = 0;
+if (tilemap_get_at_pixel(_tid, x + vel_h, y) > 0) {
+    while (!tilemap_get_at_pixel(_tid, x + sign(vel_h), y) > 0) {
+        x += sign(vel_h); 
+    }
+    vel_h = 0;
 }
 
 x += vel_h;
-y += vel_v
+
+if (tilemap_get_at_pixel(_tid, x, y + vel_v) > 0) {
+    while (!tilemap_get_at_pixel(_tid, x, y + sign(vel_v)) > 0) {
+        y += sign(vel_v);
+    }
+    vel_v = 0;
+}
+y += vel_v;
