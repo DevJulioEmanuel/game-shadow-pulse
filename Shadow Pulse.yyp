@@ -3,8 +3,12 @@
   "resourceVersion": "1.6",
   "name": "Shadow Pulse",
   "resources": [
+    {"id":{"name":"spr_fall","path":"sprites/spr_fall/spr_fall.yy",},"order":3,},
+    {"id":{"name":"spr_dust","path":"sprites/spr_dust/spr_dust.yy",},"order":0,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":1,},
-    {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},"order":1,},
+    {"id":{"name":"Sprite7","path":"sprites/Sprite7/Sprite7.yy",},"order":4,},
+    {"id":{"name":"spr_jump","path":"sprites/spr_jump/spr_jump.yy",},"order":2,},
+    {"id":{"name":"obj_dust","path":"objects/obj_dust/obj_dust.yy",},"order":0,},
     {"id":{"name":"obj_bloco","path":"objects/obj_bloco/obj_bloco.yy",},"order":0,},
     {"id":{"name":"spr_bloco","path":"sprites/spr_bloco/spr_bloco.yy",},"order":0,},
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},"order":2,},
@@ -48,6 +52,9 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sons","folderPath":"folders/Sons.yy","order":3,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprites","folderPath":"folders/Sprites.yy","order":1,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"player","folderPath":"folders/Sprites/player.yy","order":2,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"particles","folderPath":"folders/Sprites/particles.yy","order":3,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"particles","folderPath":"folders/Objetos/particles.yy","order":3,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"player","folderPath":"folders/Objetos/player.yy","order":4,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
