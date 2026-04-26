@@ -49,7 +49,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Fontes","folderPath":"folders/Fontes.yy","order":7,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Linhas do tempo","folderPath":"folders/Linhas do tempo.yy","order":8,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Objetos","folderPath":"folders/Objetos.yy","order":9,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"group1","folderPath":"folders/Objetos/group1.yy","order":6,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"colisao","folderPath":"folders/Objetos/colisao.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"particles","folderPath":"folders/Objetos/particles.yy","order":3,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"player","folderPath":"folders/Objetos/player.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Scripts","folderPath":"folders/Scripts.yy","order":5,},

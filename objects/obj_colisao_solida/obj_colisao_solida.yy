@@ -28,7 +28,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "group1",
-    "path": "folders/Objetos/group1.yy",
+    "name": "colisao",
+    "path": "folders/Objetos/colisao.yy",
   },
 }

@@ -2,7 +2,7 @@
 
 velocidade = 8;
 gravidade = .5;
-forca_pulo = -10;
+forca_pulo = -11;
 is_double_pulo = 0;
 _direction = 1;
 
