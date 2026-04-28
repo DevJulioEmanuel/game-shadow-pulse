@@ -3,8 +3,8 @@
 state_player = "normal"
 
 
-
-gravidade = .5;
+mask_index = spr_idle;
+gravidade = .55;
 forca_pulo = -11;
 is_double_pulo = 0;
 _direction = 1;
@@ -25,3 +25,5 @@ dash_direction = 1;
 death_timer = 2;
 checkpoint_x = x;
 checkpoint_y = y;
+
+x_scale_visual = 1.5;
