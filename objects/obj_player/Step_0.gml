@@ -1,19 +1,18 @@
 /// @description Movimentação e Colisão
 
-// 1. Declaramos a função de inputs e física
+
+
 function input_player() {
     var _left  = keyboard_check(ord("A"));
     var _right = keyboard_check(ord("D"));
     var _jump  = keyboard_check_pressed(vk_space);
     var _dash  = keyboard_check_pressed(vk_shift);
     
-    // Checa se está pisando no bloco sólido invisível
     var _is_ground = place_meeting(x, y + 1, obj_colisao_solida);
 
     if (_right) _direction =  1;
     if (_left)  _direction = -1;
 
-    // PULO
     if (_is_ground) {
         if (_jump) {
             vel_v = forca_pulo;
@@ -29,7 +28,6 @@ function input_player() {
         vel_v += gravidade;
     }
 
-    // DASH
     if (_dash && dash_cd_timer <= 0) {
         dash_timer     = dash_duration;
         dash_cd_timer  = dash_cooldown;
@@ -41,14 +39,23 @@ function input_player() {
         vel_v = 0;
         dash_timer--;
     } else {
-        vel_h = (_right - _left) * velocidade;
+        move = _right - _left
+		if (move != 0) {
+			vel_h += move * aceleracao;
+			vel_h = clamp(vel_h, -velocidade_max, velocidade_max)
+		} else {
+			vel_h *= freio
+			
+			if (abs(vel_h)<0.1) {
+				vel_h = 0
+			}
+		}
     }
 
     if (dash_cd_timer > 0) dash_cd_timer--;
 
-    // SPRITES
     if (dash_timer > 0) {
-        // sprite_index = spr_dash;
+   
     } else if (!_is_ground && vel_v < 0) {
         sprite_index = spr_jump;
     } else if (!_is_ground && vel_v >= 0) {
@@ -63,24 +70,43 @@ function input_player() {
     if (vel_h < 0) image_xscale =  1.5;
 }
 
-// 2. Chamamos a função para calcular as velocidades (vel_h e vel_v)
-input_player(); 
-
-// 3. Aplicamos a colisão na parede e no chão!
-// --- COLISÃO HORIZONTAL ---
-if (place_meeting(x + vel_h, y, obj_colisao_solida)) {
-    while (!place_meeting(x + sign(vel_h), y, obj_colisao_solida)) {
-        x += sign(vel_h); 
-    }
-    vel_h = 0;
+function colisions_kill() {
+	if (place_meeting(x, y, obj_espinho)) {
+		state_player = "death";
+	}
 }
-x += vel_h;
 
-// --- COLISÃO VERTICAL ---
-if (place_meeting(x, y + vel_v, obj_colisao_solida)) {
-    while (!place_meeting(x, y + sign(vel_v), obj_colisao_solida)) {
-        y += sign(vel_v);
-    }
-    vel_v = 0;
-}
-y += vel_v;
+switch (state_player) {
+	case "normal":
+		input_player();
+		colisions_kill();
+		
+		if (place_meeting(x + vel_h, y, obj_colisao_solida)) {
+			while (!place_meeting(x + sign(vel_h), y, obj_colisao_solida)) {
+			    x += sign(vel_h); 
+			}
+			vel_h = 0;
+		}
+		x += vel_h;
+
+		if (place_meeting(x, y + vel_v, obj_colisao_solida)) {
+			while (!place_meeting(x, y + sign(vel_v), obj_colisao_solida)) {
+			    y += sign(vel_v);
+			}
+			vel_v = 0;
+		}
+		y += vel_v;
+		break;
+	
+	case "death":
+		vel_h = 0;
+		vel_v = 0;
+		death_timer--;
+		if (death_timer<=0) {
+			x = checkpoint_x;
+			y = checkpoint_y;
+			state_player = "normal";
+		}
+		break;
+		
+};

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMTileSet",
   "resourceVersion": "1.0",
-  "name": "TileSet2",
+  "name": "t_cerca",
   "spriteId": {
     "name": "spr_cerca",
     "path": "sprites/spr_cerca/spr_cerca.yy",
