@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "tiles",
-    "path": "folders/Sprites/tiles.yy",
+    "name": "elem_parkour",
+    "path": "folders/Sprites/elem_parkour.yy",
   },
 }
