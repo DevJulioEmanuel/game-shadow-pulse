@@ -1,0 +1,14 @@
+  /// @description Inserir descrição aqui
+// Você pode escrever seu código neste editor
+
+x_inicial = x;
+
+distancia = 300;
+
+velocidade = 3;
+
+direcao = 1;
+
+
+
+

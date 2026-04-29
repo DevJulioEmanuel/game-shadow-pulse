@@ -4,7 +4,7 @@ state_player = "normal"
 
 
 mask_index = spr_idle;
-gravidade = .55;
+gravidade = .6;
 forca_pulo = -11;
 is_double_pulo = 0;
 _direction = 1;

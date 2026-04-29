@@ -2,7 +2,7 @@
 // Você pode escrever seu código neste editor
 
 
-velocidade = 12;
+velocidade = 20;
 direction_arrow = -1;
 
 image_xscale = 0.5;

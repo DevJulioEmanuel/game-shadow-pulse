@@ -1,2 +1,2 @@
-tempo_disparo = room_speed * 1.5; 
+tempo_disparo = room_speed * 2; 
 timer = tempo_disparo;

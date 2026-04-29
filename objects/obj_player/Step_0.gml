@@ -5,7 +5,7 @@ function input_player() {
     var _jump  = keyboard_check_pressed(vk_space);
     var _dash  = keyboard_check_pressed(vk_shift);
     
-    var _is_ground = place_meeting(x, y + 1, obj_colisao_solida);
+    var _is_ground = place_meeting(x, y + 1, obj_colisao_solida) || place_meeting(x, y + 1, obj_plataforma_movel);;
     
     if (_right) _direction =  1;
     if (_left)  _direction = -1;
@@ -100,12 +100,14 @@ function colisions_solid() {
 
     x += vel_h;
 
-    if (place_meeting(x, y + _vel_v_check, obj_colisao_solida)) {
+    if (place_meeting(x, y + _vel_v_check, obj_colisao_solida) ||
+		place_meeting(x, y + _vel_v_check, obj_plataforma_movel)
+		) {
         var _limit = 100; 
         var _step = sign(_vel_v_check);
         
         if (_step != 0) {
-            while (!place_meeting(x, y + _step, obj_colisao_solida) && _limit > 0) {
+            while ((!place_meeting(x, y + _step, obj_colisao_solida) && !place_meeting(x, y + _step, obj_plataforma_movel))  && _limit > 0) {
                 y += _step;
                 _limit--;
             }
@@ -116,6 +118,14 @@ function colisions_solid() {
 
     y += vel_v;
     y = round(y);
+	
+	// CASO SEJA PLATAFORMA MOVEL:
+	
+	var plat = instance_place(x, y + 1, obj_plataforma_movel);
+
+	if (plat != noone) {
+	    x += plat.velocidade * plat.direcao;
+	}
 }
 
 switch (state_player) {
