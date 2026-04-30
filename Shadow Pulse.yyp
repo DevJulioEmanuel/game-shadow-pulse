@@ -27,6 +27,7 @@
     {"id":{"name":"spr_run","path":"sprites/spr_run/spr_run.yy",},"order":1,},
     {"id":{"name":"spr_maquina","path":"sprites/spr_maquina/spr_maquina.yy",},"order":2,},
     {"id":{"name":"TileSet3","path":"tilesets/TileSet3/TileSet3.yy",},"order":2,},
+    {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":1,},
     {"id":{"name":"spr_ground_caverna","path":"sprites/spr_ground_caverna/spr_ground_caverna.yy",},"order":5,},
     {"id":{"name":"obj_espinho","path":"objects/obj_espinho/obj_espinho.yy",},"order":2,},
     {"id":{"name":"spr_idle","path":"sprites/spr_idle/spr_idle.yy",},"order":0,},
@@ -51,8 +52,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Anotações","folderPath":"folders/Anotações.yy","order":11,},
