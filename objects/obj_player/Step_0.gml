@@ -1,16 +1,16 @@
-/// @description Movimentação e Colisão
+
+// ─── FUNÇÕES DO PLAYER ─────────────────────────────────────────────────────
 function input_player() {
     var _left  = keyboard_check(ord("A"));
     var _right = keyboard_check(ord("D"));
     var _jump  = keyboard_check_pressed(vk_space);
     var _dash  = keyboard_check_pressed(vk_shift);
     
-    var _is_ground = place_meeting(x, y + 1, obj_colisao_solida) || place_meeting(x, y + 1, obj_plataforma_movel);;
+    var _is_ground = place_meeting_any(x, y + 1, GROUND_OBJECTS);
     
     if (_right) _direction =  1;
     if (_left)  _direction = -1;
 
-    // Aplica gravidade sempre que não está no chão
     if (!_is_ground) {
         vel_v += gravidade;
     }
@@ -39,16 +39,13 @@ function input_player() {
         vel_v = 0;
         dash_timer--;
     } else {
-        // MOVIMENTACAO RUN
         move = _right - _left;
         if (move != 0) {
             vel_h += move * aceleracao;
             vel_h = clamp(vel_h, -velocidade_max, velocidade_max);
         } else {
             vel_h *= freio;
-            if (abs(vel_h) < 0.1) {
-                vel_h = 0;
-            }
+            if (abs(vel_h) < 0.1) vel_h = 0;
         }
     }
 
@@ -56,7 +53,7 @@ function input_player() {
 
     // SPRITES
     if (dash_timer > 0) {
-        // sprite do dash aqui se tiver
+        // sprite do dash
     } else if (!_is_ground && vel_v < 0) {
         sprite_index = spr_jump;
     } else if (!_is_ground && vel_v >= 0) {
@@ -72,62 +69,44 @@ function input_player() {
 }
 
 function colisions_kill() {
-    if (place_meeting(x, y, obj_espinho)) {
+    if (place_meeting_any(x, y, KILL_OBJECTS)) {
         state_player = "death";
     }
 }
 
 function colisions_solid() {
-
-    var _vel_h_check = round(vel_h);
-    var _vel_v_check = round(vel_v);
-
-    if (place_meeting(x + _vel_h_check, y, obj_colisao_solida)) {
+    var _vel_h_sign = sign(vel_h);
+    var _vel_v_sign = sign(vel_v);
+    
+    // Horizontal
+    if (place_meeting_any(x + vel_h, y, BLOCK_H_OBJECTS)) {
         var _limit = 100;
-        var _step = sign(_vel_h_check);
-        
-
-        if (_step != 0) {
-       
-            while (!place_meeting(x + _step, y, obj_colisao_solida) && _limit > 0) {
-                x += _step;
-                _limit--;
-            }
+        while (!place_meeting_any(x + _vel_h_sign, y, BLOCK_H_OBJECTS) && _limit-- > 0) {
+            x += _vel_h_sign;
         }
-        
-        vel_h = 0; 
+        vel_h = 0;
     }
-
     x += vel_h;
-
-    if (place_meeting(x, y + _vel_v_check, obj_colisao_solida) ||
-		place_meeting(x, y + _vel_v_check, obj_plataforma_movel)
-		) {
-        var _limit = 100; 
-        var _step = sign(_vel_v_check);
-        
-        if (_step != 0) {
-            while ((!place_meeting(x, y + _step, obj_colisao_solida) && !place_meeting(x, y + _step, obj_plataforma_movel))  && _limit > 0) {
-                y += _step;
-                _limit--;
-            }
+    
+    // Vertical
+    if (place_meeting_any(x, y + vel_v, BLOCK_V_OBJECTS)) {
+        var _limit = 100;
+        while (!place_meeting_any(x, y + _vel_v_sign, BLOCK_V_OBJECTS) && _limit-- > 0) {
+            y += _vel_v_sign;
         }
-        
-        vel_v = 0; 
+        vel_v = 0;
     }
-
     y += vel_v;
     y = round(y);
-	
-	// CASO SEJA PLATAFORMA MOVEL:
-	
-	var plat = instance_place(x, y + 1, obj_plataforma_movel);
-
-	if (plat != noone) {
-	    x += plat.velocidade * plat.direcao;
-	}
+     
+    // Plataforma móvel carrega o player
+    var _plat = instance_place_any(x, y + 1, MOVING_OBJECTS);
+    if (_plat != noone) {
+        x += _plat.velocidade * _plat.direcao;
+    }
 }
 
+// ─── STATE MACHINE ─────────────────────────────────────────────────────────
 switch (state_player) {
     case "normal":
         input_player();
@@ -138,12 +117,11 @@ switch (state_player) {
     case "death":
         vel_h = 0;
         vel_v = 0;
-        death_timer--;
-        if (death_timer <= 0) {
+        if (--death_timer <= 0) {
             x = checkpoint_x;
             y = checkpoint_y;
             state_player = "normal";
             death_timer = 2;
         }
         break;
-};
+}
