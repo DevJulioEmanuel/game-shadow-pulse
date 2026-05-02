@@ -1,4 +1,7 @@
 // === ROOM START EVENT ===
+show_debug_message("ROOM START | room=" + string(room) + " | room_name=" + string(room_get_name(room)) + " | estado=" + string(estado) + " | proxima_room=" + string(proxima_room));
+show_debug_message("ROOM START | proxima_room antes=" + string(proxima_room));
+
 if (estado == "trocando") {
     estado = "abrindo";
     raio = 0;

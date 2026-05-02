@@ -11,7 +11,7 @@ _direction = 1;
 
 vel_h = 0;
 vel_v = 0;
-aceleracao = 0.7;
+aceleracao = 1.2;
 freio = 0.6;
 velocidade_max = 8;
 

@@ -6,7 +6,7 @@
 #macro MOVING_OBJECTS  [obj_plataforma_movel]
 
 // Todos que bloqueiam movimento (sólidos + fall)
-#macro BLOCK_H_OBJECTS [obj_colisao_solida, obj_plataforma_fall]
+#macro BLOCK_H_OBJECTS [obj_colisao_solida, obj_plataforma_movel, obj_plataforma_fall]
 #macro BLOCK_V_OBJECTS [obj_colisao_solida, obj_plataforma_movel, obj_plataforma_fall]
 #macro GROUND_OBJECTS  [obj_colisao_solida, obj_plataforma_movel, obj_plataforma_fall]
 #macro KILL_OBJECTS    [obj_espinho]

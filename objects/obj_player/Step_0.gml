@@ -77,6 +77,7 @@ function colisions_kill() {
 function colisions_solid() {
     var _vel_h_sign = sign(vel_h);
     var _vel_v_sign = sign(vel_v);
+	
     
     // Horizontal
     if (place_meeting_any(x + vel_h, y, BLOCK_H_OBJECTS)) {
@@ -97,13 +98,9 @@ function colisions_solid() {
         vel_v = 0;
     }
     y += vel_v;
-    y = round(y);
+    
      
-    // Plataforma móvel carrega o player
-    var _plat = instance_place_any(x, y + 1, MOVING_OBJECTS);
-    if (_plat != noone) {
-        x += _plat.velocidade * _plat.direcao;
-    }
+    
 }
 
 // ─── STATE MACHINE ─────────────────────────────────────────────────────────

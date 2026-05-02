@@ -13,6 +13,7 @@
     {"id":{"name":"obj_plataforma_fall","path":"objects/obj_plataforma_fall/obj_plataforma_fall.yy",},"order":5,},
     {"id":{"name":"spr_plataforma_movel","path":"sprites/spr_plataforma_movel/spr_plataforma_movel.yy",},"order":4,},
     {"id":{"name":"spr_colision","path":"sprites/spr_colision/spr_colision.yy",},"order":1,},
+    {"id":{"name":"Room3","path":"rooms/Room3/Room3.yy",},"order":2,},
     {"id":{"name":"spr_flecha","path":"sprites/spr_flecha/spr_flecha.yy",},"order":3,},
     {"id":{"name":"obj_plataforma_movel","path":"objects/obj_plataforma_movel/obj_plataforma_movel.yy",},"order":4,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":0,},
@@ -59,6 +60,7 @@
   "RoomOrderNodes": [
     {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"roomId":{"name":"Room2","path":"rooms/Room2/Room2.yy",},},
+    {"roomId":{"name":"Room3","path":"rooms/Room3/Room3.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Anotações","folderPath":"folders/Anotações.yy","order":11,},

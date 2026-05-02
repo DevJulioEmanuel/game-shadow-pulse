@@ -8,3 +8,4 @@ alvo_y = 0;
 proxima_room = noone;
 global.trans_surface = -1;
 persistent = true;
+travado = false;

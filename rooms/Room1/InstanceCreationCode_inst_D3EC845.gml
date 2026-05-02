@@ -1,0 +1,1 @@
+proxima_room = Room2;
