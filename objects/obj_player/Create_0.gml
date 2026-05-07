@@ -2,6 +2,7 @@
 
 state_player = "normal"
 
+life_player = 5;
 
 mask_index = spr_idle;
 gravidade = .6;
@@ -27,3 +28,5 @@ checkpoint_x = x;
 checkpoint_y = y;
 
 x_scale_visual = 1.5;
+
+hit_timer = 0;

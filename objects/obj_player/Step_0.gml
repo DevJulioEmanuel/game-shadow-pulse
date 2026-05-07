@@ -110,6 +110,25 @@ switch (state_player) {
         colisions_kill();
         colisions_solid();
         break;
+		
+	case "hit":
+		input_player();
+		colisions_kill();
+        colisions_solid();
+		show_debug_message(hit_timer)
+		if (hit_timer <= 0) {
+			life_player -= 1;
+		}
+		hit_timer++;
+		
+		if (life_player <= 0) {
+			state_player = "death"
+		}
+		if (hit_timer >= 20) {
+			hit_timer = 0;
+			state_player = "normal"
+		}
+		break
     
     case "death":
         vel_h = 0;
