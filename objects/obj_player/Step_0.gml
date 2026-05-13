@@ -62,13 +62,7 @@ function input_player() {
     } else {
 		if (knockback_timer <= 0) {
 			 move = _right - _left;
-	        if (move != 0) {
-	            vel_h += move * aceleracao;
-	            vel_h = clamp(vel_h, -velocidade_max, velocidade_max);
-	        } else {
-	            vel_h *= freio;
-	            if (abs(vel_h) < 0.1) vel_h = 0;
-	        }
+			 vel_h = move * velocidade_max;
 		}
        
     }
@@ -137,24 +131,43 @@ switch (state_player) {
         break;
 		
 	case "attack":
-		attack_timer--;
+
+	    sprite_index = spr_attack;
+	    image_speed = 1;
 		
-		if (attack_timer == 10) {
-			var hit = instance_create_layer(
-				x + (50 * _direction),
-				y,
-				"hitbox",
-				obj_attack
-			)
-			hit.image_xscale = _direction
-			hit.damage = damage;
-		}
+		var _is_ground = place_meeting_any(x, y + 1, GROUND_OBJECTS);
+
+		vel_h = 0;
 		
-		if (attack_timer <= 0) {
-			state_player = "normal";
-			can_attack = true;
+		if (!_is_ground) {
+		    vel_v += gravidade;
 		}
-		break;
+
+		colisions_solid();
+
+	    if (attack_timer == 15) {
+	        image_index = 0;
+	    }
+
+	    attack_timer--;
+		
+	    if (attack_timer == 10) {
+	        var hit = instance_create_layer(
+	            x + (50 * _direction),
+	            y,
+	            "hitbox",
+	            obj_attack
+	        );
+
+	        hit.image_xscale = _direction;
+	        hit.damage = damage;
+	    }
+		
+	    if (attack_timer <= 0) {
+	        state_player = "normal";
+	        can_attack = true;
+	    }
+	    break;
 		
 	case "hit":
 		can_attack = true;
