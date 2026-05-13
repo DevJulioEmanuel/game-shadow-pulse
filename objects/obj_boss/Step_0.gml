@@ -5,10 +5,10 @@ distancia = point_distance(x, y, obj_player.x, obj_player.y);
 
 switch(state_boss) {
 	case "idle":
-		if (distancia > 100) {
-			state_boss = "move"
-		}
+		state_boss = "move";
 		break;
+		
+	
 	case "move":
 		if (obj_player.x > x) {
 			x += speed_boss
@@ -22,6 +22,11 @@ switch(state_boss) {
 		}
 		
 		break;
+	
+	case "hit":
+		state_boss = "move"
+		break;
+	
 	case "attack":
 		with (obj_player) {
 			state_player = "hit";

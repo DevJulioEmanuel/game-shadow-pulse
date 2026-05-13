@@ -30,3 +30,10 @@ checkpoint_y = y;
 x_scale_visual = 1.5;
 
 hit_timer = 0;
+
+knockback_power = 0;
+knockback_timer = 0;
+
+attack_timer = 0;
+can_attack = true;
+damage = 10;

@@ -1,3 +1,12 @@
+if (knockback_timer > 0)
+{
+    x += knockback_power;
+
+    knockback_power *= 0.85;
+
+    knockback_timer--;
+}
+
 
 // ─── FUNÇÕES DO PLAYER ─────────────────────────────────────────────────────
 function input_player() {
@@ -11,9 +20,19 @@ function input_player() {
     if (_right) _direction =  1;
     if (_left)  _direction = -1;
 
-    if (!_is_ground) {
+    // ATAQUE
+	if (keyboard_check_pressed(ord("J")) && can_attack) {
+		state_player = "attack";
+		attack_timer = 15;
+		can_attack = false;
+	}
+	
+	// PULO
+	
+	if (!_is_ground) {
         vel_v += gravidade;
     }
+	
 
     if (_is_ground) {
         if (_jump) {
@@ -28,8 +47,10 @@ function input_player() {
             is_double_pulo = 0;
         }
     }
+	
+	// DASH
 
-    if (_dash && dash_cd_timer <= 0) {
+    if (_dash && dash_cd_timer <= 0 && knockback_timer <= 0) {
         dash_timer     = dash_duration;
         dash_cd_timer  = dash_cooldown;
         dash_direction = _direction;
@@ -39,14 +60,17 @@ function input_player() {
         vel_v = 0;
         dash_timer--;
     } else {
-        move = _right - _left;
-        if (move != 0) {
-            vel_h += move * aceleracao;
-            vel_h = clamp(vel_h, -velocidade_max, velocidade_max);
-        } else {
-            vel_h *= freio;
-            if (abs(vel_h) < 0.1) vel_h = 0;
-        }
+		if (knockback_timer <= 0) {
+			 move = _right - _left;
+	        if (move != 0) {
+	            vel_h += move * aceleracao;
+	            vel_h = clamp(vel_h, -velocidade_max, velocidade_max);
+	        } else {
+	            vel_h *= freio;
+	            if (abs(vel_h) < 0.1) vel_h = 0;
+	        }
+		}
+       
     }
 
     if (dash_cd_timer > 0) dash_cd_timer--;
@@ -103,7 +127,8 @@ function colisions_solid() {
     
 }
 
-// ─── STATE MACHINE ─────────────────────────────────────────────────────────
+// ─── STATES PLAYER ─────────────────────────────────────────────────────────
+
 switch (state_player) {
     case "normal":
         input_player();
@@ -111,14 +136,45 @@ switch (state_player) {
         colisions_solid();
         break;
 		
+	case "attack":
+		attack_timer--;
+		
+		if (attack_timer == 10) {
+			var hit = instance_create_layer(
+				x + (50 * _direction),
+				y,
+				"hitbox",
+				obj_attack
+			)
+			hit.image_xscale = _direction
+			hit.damage = damage;
+		}
+		
+		if (attack_timer <= 0) {
+			state_player = "normal";
+			can_attack = true;
+		}
+		break;
+		
 	case "hit":
+		can_attack = true;
 		input_player();
 		colisions_kill();
         colisions_solid();
-		show_debug_message(hit_timer)
 		if (hit_timer <= 0) {
+			dash_timer = 0;
+			vel_h = 0
 			life_player -= 1;
 		}
+		
+		if (obj_boss.x > x) {
+			knockback_power = -8;
+		} else {
+			knockback_power = 8;
+		}
+		
+		knockback_timer = 10;
+		
 		hit_timer++;
 		
 		if (life_player <= 0) {
@@ -133,6 +189,7 @@ switch (state_player) {
     case "death":
         vel_h = 0;
         vel_v = 0;
+		life_player = 5;
         if (--death_timer <= 0) {
             x = checkpoint_x;
             y = checkpoint_y;
